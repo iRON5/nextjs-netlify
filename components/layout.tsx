@@ -1,16 +1,17 @@
+import React from 'react';
 import Link from 'next/link';
 
-export const Layout = ({ children }) => (
+export const Layout: React.FC = ({ children }) => (
   <>
     <nav>
       <Link href="/">
-        <a>home</a>
+        <a href="/#">home</a>
       </Link>
       <Link href="/blog">
-        <a>blog</a>
+        <a href="/#">blog</a>
       </Link>
       <Link href="/about">
-        <a>about</a>
+        <a href="/#">about</a>
       </Link>
     </nav>
     <main>{children}</main>

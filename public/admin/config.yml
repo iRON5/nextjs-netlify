@@ -1,22 +1,95 @@
 backend:
   name: git-gateway
-  branch: master
-media_folder: public/img
-public_folder: img
+  branch: stage
+media_folder: img
+slug:
+  encoding: 'ascii'
+  clean_accents: true
 collections:
   - name: 'pages'
     label: 'Pages'
     files:
       - label: 'Home'
-        name: 'home'
-        file: 'content/home.md'
+        name: 'home_en'
+        filter:
+          field: language
+          value: en
+        file: 'content/home/en.md'
         fields:
+          - { label: "Language", name: "language" }
           - { label: 'Title', name: 'title', widget: 'string' }
           - { label: 'Publish Date', name: 'date', widget: 'datetime' }
           - { label: 'Body', name: 'body', widget: 'markdown' }
-          - label: 'Cats'
-            name: 'cats'
-            widget: list
-            fields:
-              - { label: 'Name', name: 'name', widget: 'string' }
-              - { label: 'Description', name: 'description', widget: 'text' }
+      - label: 'Главная'
+        name: 'home_ru'
+        filter:
+          field: language
+          value: ru
+        file: 'content/home/en.md'
+        fields:
+          - { label: "Язык", name: "language" }
+          - { label: 'Заголовок', name: 'title', widget: 'string' }
+          - { label: 'Дата Публикации', name: 'date', widget: 'datetime' }
+          - { label: 'Текст', name: 'body', widget: 'markdown' }
+      - label: 'About'
+        name: 'about_en'
+        file: 'content/about/en.md'
+        filter:
+          field: language
+          value: en
+        fields:
+          - { label: "Language", name: "language" }
+          - { label: 'Title', name: 'title', widget: 'string' }
+          - { label: 'Publish Date', name: 'date', widget: 'datetime' }
+          - { label: 'Body', name: 'body', widget: 'markdown' }
+      - label: 'Обо мне'
+        name: 'about_ru'
+        file: 'content/about/ru.md'
+        filter:
+          field: language
+          value: ru
+        fields:
+          - { label: "Язык", name: "language" }
+          - { label: 'Заголовок', name: 'title', widget: 'string' }
+          - { label: 'Дата Публикации', name: 'date', widget: 'datetime' }
+          - { label: 'Текст', name: 'body', widget: 'markdown' }
+  - label: 'Blog'
+    name: 'blog_en'
+    folder: 'content/posts/en'
+    create: true
+    fields:
+      - { label: "Language", name: "language" }
+      - { label: 'Title', name: 'title', widget: 'string', required: true }
+      - {
+          label: 'Publish Date',
+          name: 'date',
+          widget: 'datetime',
+          required: true,
+        }
+      - {
+          label: 'Featured Image',
+          name: 'thumbnail',
+          widget: 'image',
+          required: true,
+        }
+      - { label: 'Body', name: 'body', widget: 'markdown', required: true }
+  - label: 'Blog'
+    name: 'blog_ru'
+    folder: 'content/posts/ru'
+    create: true
+    fields:
+      - { label: "Язык", name: "language" }
+      - { label: 'Заголовок', name: 'title', widget: 'string', required: true }
+      - {
+          label: 'Дата Публикации',
+          name: 'date',
+          widget: 'datetime',
+          required: true,
+        }
+      - {
+          label: 'Изображение',
+          name: 'thumbnail',
+          widget: 'image',
+          required: true,
+        }
+      - { label: 'Текст', name: 'body', widget: 'markdown', required: true }
