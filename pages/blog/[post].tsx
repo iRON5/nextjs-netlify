@@ -34,6 +34,9 @@ const Post: React.FC<PostProps> = ({ post }) => {
         h1 {
           text-align: center;
         }
+        img {
+          max-width: 100%;
+        }
       `}</style>
     </Layout>
   );
