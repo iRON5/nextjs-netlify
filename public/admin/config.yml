@@ -1,5 +1,6 @@
 backend:
-  name: git-gateway
+  name: github
+  repo: iRON5/nextjs-netlify
   branch: stage
 media_folder: img
 slug:
