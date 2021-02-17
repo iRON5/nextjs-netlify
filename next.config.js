@@ -1,10 +1,17 @@
 module.exports = {
-  webpack: (cfg) => {
-    cfg.module.rules.push({
-      test: /\.md$/,
-      loader: 'frontmatter-markdown-loader',
-      options: { mode: ['react-component'] },
-    });
-    return cfg;
-  },
+  i18n: {
+    // These are all the locales you want to support in
+    // your application
+    locales: ['en', 'ru'],
+    // This is the default locale you want to be used when visiting
+    // a non-locale prefixed path e.g. `/hello`
+    defaultLocale: 'en'
+  }
+  // webpack: (configuration) => {
+  //   configuration.module.rules.push({
+  //     test: /\.md$/,
+  //     use: 'frontmatter-markdown-loader',
+  //   })
+  //   return configuration
+  // },
 };
