@@ -20,12 +20,7 @@ collections:
           value: en
         file: 'content/home/en.md'
         fields:
-          - label: "Language"
-            name: language
-            widget: list
-            fields:
-              - { label: Ru, name: ru }
-              - { label: En, name: en }
+          - { label: Language, name: language, widget: select, options: [en, ru] }
           - { label: 'Title', name: 'title', widget: 'string' }
           - { label: 'Publish Date', name: 'date', widget: 'datetime' }
           - { label: 'Body', name: 'body', widget: 'markdown' }
@@ -36,12 +31,7 @@ collections:
           value: ru
         file: 'content/home/en.md'
         fields:
-          - label: "Язык"
-            name: language
-            widget: list
-            fields:
-              - { label: Ru, name: ru }
-              - { label: En, name: en }
+          - { label: Язык, name: language, widget: select, options: [en, ru] }
           - { label: 'Заголовок', name: 'title', widget: 'string' }
           - { label: 'Дата Публикации', name: 'date', widget: 'datetime' }
           - { label: 'Текст', name: 'body', widget: 'markdown' }
@@ -52,12 +42,7 @@ collections:
           field: language
           value: en
         fields:
-          - label: "Language"
-            name: language
-            widget: list
-            fields:
-              - { label: Ru, name: ru }
-              - { label: En, name: en }
+          - { label: Language, name: language, widget: select, options: [en, ru] }
           - { label: 'Title', name: 'title', widget: 'string' }
           - { label: 'Publish Date', name: 'date', widget: 'datetime' }
           - { label: 'Body', name: 'body', widget: 'markdown' }
@@ -68,12 +53,7 @@ collections:
           field: language
           value: ru
         fields:
-          - label: "Language"
-            name: language
-            widget: list
-            fields:
-              - { label: Ru, name: ru }
-              - { label: En, name: en }
+          - { label: Язык, name: language, widget: select, options: [en, ru] }
           - { label: 'Заголовок', name: 'title', widget: 'string' }
           - { label: 'Дата Публикации', name: 'date', widget: 'datetime' }
           - { label: 'Текст', name: 'body', widget: 'markdown' }
@@ -86,7 +66,7 @@ collections:
         value: en
     create: true
     fields:
-      - { label: "Language", name: "language" }
+      - { label: Language, name: language, widget: select, options: [en, ru] }
       - { label: 'Title', name: 'title', widget: 'string', required: true }
       - { label: 'URL Slug', name: 'slug', widget: 'string', required: true }
       - {
@@ -111,7 +91,7 @@ collections:
         value: en
     create: true
     fields:
-      - { label: "Язык", name: "language" }
+      - { label: Язык, name: language, widget: select, options: [en, ru] }
       - { label: 'Заголовок', name: 'title', widget: 'string', required: true }
       - { label: 'URL заголовок', name: 'slug', widget: 'string', required: true }
       - {

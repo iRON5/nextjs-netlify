@@ -2,6 +2,7 @@
 language: en
 title: Hippo
 date: 2021-02-18T08:56:45.887Z
+slug: hippo
 thumbnail: /img/square_1280_64452426fc35cf0d42183dede2ad9ae2.jpg
 ---
 Hippos are very rude animals.

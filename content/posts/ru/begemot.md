@@ -1,8 +1,8 @@
 ---
 language: ru
 title: Бегемоть
-slug: begemot
 date: 2021-02-18T08:51:25.430Z
+slug: begemot
 thumbnail: /img/square_1280_64452426fc35cf0d42183dede2ad9ae2.jpg
 ---
 Бегемоти очень грубые животные.\

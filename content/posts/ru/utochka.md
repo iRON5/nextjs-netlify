@@ -1,4 +1,5 @@
 ---
+language: ru
 title: Пост с уточкой
 date: 2020-09-06T08:28:44.549Z
 slug: utochka
