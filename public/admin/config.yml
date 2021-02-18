@@ -1,7 +1,7 @@
 backend:
   name: github
   repo: iRON5/nextjs-netlify
-  branch: stage
+  branch: master
   site_domain: romco.site
   base_url: https://api.github.com
 media_folder: /public/img
@@ -13,57 +13,82 @@ collections:
   - name: 'pages'
     label: 'Pages'
     files:
-      - label: 'Home'
+      - label: 'Home (en)'
         name: 'home_en'
         filter:
           field: language
           value: en
         file: 'content/home/en.md'
         fields:
-          - { label: "Language", name: "language" }
+          - label: "Language"
+            name: language
+            widget: list
+            fields:
+              - { label: Ru, name: ru }
+              - { label: En, name: en }
           - { label: 'Title', name: 'title', widget: 'string' }
           - { label: 'Publish Date', name: 'date', widget: 'datetime' }
           - { label: 'Body', name: 'body', widget: 'markdown' }
-      - label: 'Главная'
+      - label: 'Home (ru)'
         name: 'home_ru'
         filter:
           field: language
           value: ru
         file: 'content/home/en.md'
         fields:
-          - { label: "Язык", name: "language" }
+          - label: "Язык"
+            name: language
+            widget: list
+            fields:
+              - { label: Ru, name: ru }
+              - { label: En, name: en }
           - { label: 'Заголовок', name: 'title', widget: 'string' }
           - { label: 'Дата Публикации', name: 'date', widget: 'datetime' }
           - { label: 'Текст', name: 'body', widget: 'markdown' }
-      - label: 'About'
+      - label: 'About (en)'
         name: 'about_en'
         file: 'content/about/en.md'
         filter:
           field: language
           value: en
         fields:
-          - { label: "Language", name: "language" }
+          - label: "Language"
+            name: language
+            widget: list
+            fields:
+              - { label: Ru, name: ru }
+              - { label: En, name: en }
           - { label: 'Title', name: 'title', widget: 'string' }
           - { label: 'Publish Date', name: 'date', widget: 'datetime' }
           - { label: 'Body', name: 'body', widget: 'markdown' }
-      - label: 'Обо мне'
+      - label: 'About (ru)'
         name: 'about_ru'
         file: 'content/about/ru.md'
         filter:
           field: language
           value: ru
         fields:
-          - { label: "Язык", name: "language" }
+          - label: "Language"
+            name: language
+            widget: list
+            fields:
+              - { label: Ru, name: ru }
+              - { label: En, name: en }
           - { label: 'Заголовок', name: 'title', widget: 'string' }
           - { label: 'Дата Публикации', name: 'date', widget: 'datetime' }
           - { label: 'Текст', name: 'body', widget: 'markdown' }
-  - label: 'Blog post'
+  - label: 'Blog posts (en)'
     name: 'blog_en'
     folder: 'content/posts/en'
+    slug: "{{fields.slug}}"
+    filter:
+        field: language
+        value: en
     create: true
     fields:
       - { label: "Language", name: "language" }
       - { label: 'Title', name: 'title', widget: 'string', required: true }
+      - { label: 'URL Slug', name: 'slug', widget: 'string', required: true }
       - {
           label: 'Publish Date',
           name: 'date',
@@ -77,13 +102,18 @@ collections:
           required: true,
         }
       - { label: 'Body', name: 'body', widget: 'markdown', required: true }
-  - label: 'Blog post ru'
+  - label: 'Blog posts (ru)'
     name: 'blog_ru'
     folder: 'content/posts/ru'
+    slug: "{{fields.slug}}"
+    filter:
+        field: language
+        value: en
     create: true
     fields:
       - { label: "Язык", name: "language" }
       - { label: 'Заголовок', name: 'title', widget: 'string', required: true }
+      - { label: 'URL заголовок', name: 'slug', widget: 'string', required: true }
       - {
           label: 'Дата Публикации',
           name: 'date',
