@@ -1,0 +1,11 @@
+---
+language: en
+title: Hippo
+date: 2021-02-18T08:56:45.887Z
+thumbnail: /img/square_1280_64452426fc35cf0d42183dede2ad9ae2.jpg
+---
+Hippos are very rude animals.
+
+Never offer a hippo to drink water or tea, sit down or help bring bags. Hippos are self-sufficient and proud, if you hurt their feelings, they can offend you.
+
+Hippos are especially touchy in summer, when it is +50 degrees outside. They go under the water, and whisper there about all the passers-by.
