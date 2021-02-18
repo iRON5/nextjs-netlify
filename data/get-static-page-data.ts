@@ -1,13 +1,13 @@
 import { loadMarkdown } from 'lib/load-markdown';
 
-export const getStaticPageData = <
+export const getStaticPageData = async <
   Params extends { [P in keyof Params]: Params[P] }
 >(
   locale: string,
   page: 'home' | 'about',
   fields: (keyof Params)[] = []
 ) => {
-  const { data, content } = loadMarkdown(page, locale);
+  const { data, content } = await loadMarkdown(page, locale);
 
   const post: {
     locale: string;

@@ -1,11 +1,26 @@
 backend:
   name: github
   repo: iRON5/nextjs-netlify
-  branch: master
-  site_domain: romco.site
-  base_url: https://api.github.com
+  branch: stage
+  base_url: https://romco.site
+  auth_endpoint: api/auth
+  open_authoring: true
 media_folder: /public/img
 public_folder: img
+publish_mode: editorial_workflow
+# i18n:
+#   # Required and can be one of multiple_folders, multiple_files or single_file
+#   # multiple_folders - persists files in `<folder>/<locale>/<slug>.<extension>`
+#   # multiple_files - persists files in `<folder>/<slug>.<locale>.<extension>`
+#   # single_file - persists a single file in `<folder>/<slug>.<extension>`
+#   structure: multiple_files
+
+#   # Required - a list of locales to show in the editor UI
+#   locales: [en, ru]
+
+#   # Optional, defaults to the first item in locales.
+#   # The locale to be used for fields validation and as a baseline for the entry.
+#   default_locale: en
 slug:
   encoding: 'ascii'
   clean_accents: true
@@ -19,8 +34,14 @@ collections:
           field: language
           value: en
         file: 'content/home/en.md'
+        preview_path: /api/preview?slug=home&ln=en
         fields:
-          - { label: Language, name: language, widget: select, options: [en, ru] }
+          - {
+              label: Language,
+              name: language,
+              widget: select,
+              options: [en, ru],
+            }
           - { label: 'Title', name: 'title', widget: 'string' }
           - { label: 'Publish Date', name: 'date', widget: 'datetime' }
           - { label: 'Body', name: 'body', widget: 'markdown' }
@@ -30,6 +51,7 @@ collections:
           field: language
           value: ru
         file: 'content/home/en.md'
+        preview_path: /api/preview?slug=home&ln=ru
         fields:
           - { label: Язык, name: language, widget: select, options: [en, ru] }
           - { label: 'Заголовок', name: 'title', widget: 'string' }
@@ -38,17 +60,24 @@ collections:
       - label: 'About (en)'
         name: 'about_en'
         file: 'content/about/en.md'
+        preview_path: /api/preview?slug=about&ln=en
         filter:
           field: language
           value: en
         fields:
-          - { label: Language, name: language, widget: select, options: [en, ru] }
+          - {
+              label: Language,
+              name: language,
+              widget: select,
+              options: [en, ru],
+            }
           - { label: 'Title', name: 'title', widget: 'string' }
           - { label: 'Publish Date', name: 'date', widget: 'datetime' }
           - { label: 'Body', name: 'body', widget: 'markdown' }
       - label: 'About (ru)'
         name: 'about_ru'
         file: 'content/about/ru.md'
+        preview_path: /api/preview?slug=about&ln=ru
         filter:
           field: language
           value: ru
@@ -59,11 +88,15 @@ collections:
           - { label: 'Текст', name: 'body', widget: 'markdown' }
   - label: 'Blog posts (en)'
     name: 'blog_en'
+    # same as the top level, but all fields are optional and defaults to the top level
+    # can also be a boolean to accept the top level defaults
+    # i18n: true
     folder: 'content/posts/en'
-    slug: "{{fields.slug}}"
+    slug: '{{fields.slug}}'
+    preview_path: /api/preview?slug=blog/{{fields.slug}}&ln=en
     filter:
-        field: language
-        value: en
+      field: language
+      value: en
     create: true
     fields:
       - { label: Language, name: language, widget: select, options: [en, ru] }
@@ -85,15 +118,21 @@ collections:
   - label: 'Blog posts (ru)'
     name: 'blog_ru'
     folder: 'content/posts/ru'
-    slug: "{{fields.slug}}"
+    slug: '{{fields.slug}}'
+    preview_path: /api/preview?slug=blog/{{fields.slug}}&ln=ru
     filter:
-        field: language
-        value: en
+      field: language
+      value: en
     create: true
     fields:
       - { label: Язык, name: language, widget: select, options: [en, ru] }
       - { label: 'Заголовок', name: 'title', widget: 'string', required: true }
-      - { label: 'URL заголовок', name: 'slug', widget: 'string', required: true }
+      - {
+          label: 'URL заголовок',
+          name: 'slug',
+          widget: 'string',
+          required: true,
+        }
       - {
           label: 'Дата Публикации',
           name: 'date',

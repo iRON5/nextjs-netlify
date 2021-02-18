@@ -23,14 +23,14 @@ const getPostSlugs = (locales: string[]) => {
   );
 };
 
-export const getPostBySlug = <T extends PostParams>(
+export const getPostBySlug = async <T extends PostParams>(
   slug: {
     locale: string;
     path: string;
   },
   fields: PostField[] = []
 ) => {
-  const { data, content, realSlug, excerpt } = loadMarkdown(
+  const { data, content, realSlug, excerpt } = await loadMarkdown(
     `posts/${slug.locale}`,
     slug.path
   );
@@ -69,19 +69,19 @@ export const getPostBySlug = <T extends PostParams>(
   return post;
 };
 
-export const getAllPosts = <T extends PostParams>(
+export const getAllPosts = async <T extends PostParams>(
   locales: string[] = [],
   fields: PostField[] = []
 ) => {
   const slugs = getPostSlugs(locales);
-  const posts = slugs
-    .map((slug) => getPostBySlug<T>(slug, fields))
-    // sort posts by date in descending order
-    .sort(
-      (post1, post2) =>
-        Date.parse(post2.params.date || '') -
-        Date.parse(post1.params.date || '')
-    );
+  const posts = await Promise.all(
+    slugs.map(async (slug) => await getPostBySlug<T>(slug, fields))
+  );
 
-  return posts;
+  // sort posts by date in descending order
+  return posts.sort(
+    (post1, post2) =>
+      Date.parse(post2.params.date || '') -
+      Date.parse(post1.params.date || '')
+  );
 };

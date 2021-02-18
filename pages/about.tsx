@@ -4,12 +4,6 @@ import { GetStaticProps } from 'next';
 import { markdownToHtml } from 'lib/markdown-to-html';
 import { getStaticPageData } from 'data/get-static-page-data';
 
-interface AboutData {
-  title: string;
-  date: string;
-  content: string;
-}
-
 interface AboutProps {
   locale: string;
   data: AboutData;
@@ -37,7 +31,7 @@ export const getStaticProps: GetStaticProps<
   AboutProps,
   AboutPathParams
 > = async ({ locale = 'en' }) => {
-  const data = getStaticPageData<AboutData>(locale, 'about', [
+  const data = await getStaticPageData<AboutData>(locale, 'about', [
     'title',
     'date',
     'content'

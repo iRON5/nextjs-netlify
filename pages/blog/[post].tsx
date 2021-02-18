@@ -1,5 +1,3 @@
-// import fs from 'fs';
-// import path from 'path';
 import React from 'react';
 import { Layout } from 'components/layout';
 import { getPostBySlug, getAllPosts } from 'data/posts';
@@ -50,7 +48,7 @@ interface PostPathParams {
 export const getStaticPaths: GetStaticPaths<PostPathParams> = async ({
   locales
 }) => {
-  const posts = getAllPosts<{ slug: string }>(locales, ['slug']);
+  const posts = await getAllPosts<{ slug: string }>(locales, ['slug']);
 
   return {
     paths: posts.map((post) => {
@@ -69,7 +67,7 @@ export const getStaticProps: GetStaticProps<
   PostProps,
   PostPathParams
 > = async ({ locale = 'en', params = {} }) => {
-  const post = getPostBySlug<PostData>(
+  const post = await getPostBySlug<PostData>(
     {
       locale,
       path: params.post || ''
@@ -87,40 +85,5 @@ export const getStaticProps: GetStaticProps<
     }
   };
 };
-
-// export async function getStaticPaths({ locales }) {
-//   const paths = await locales.reduce(async (localizedPaths, locale) => {
-//     const files = await fs.readdirSync(
-//       path.join(process.cwd(), `content/posts/${locale}`)
-//     );
-
-//     return [
-//       ...localizedPaths,
-//       ...files.map((path) => ({
-//         locale,
-//         params: { slug: path.split('.')[0] }
-//       }))
-//     ];
-//   }, []);
-
-//   return {
-//     paths,
-//     fallback: false // constrols whether not predefined paths should be processed on demand, check for more info: https://nextjs.org/docs/basic-features/data-fetching#the-fallback-key-required
-//   };
-// }
-
-// export async function getStaticProps({ params, locale }) {
-//   const { slug } = params;
-
-//   const blogpost = await import(
-//     `../../../content/posts/${locale}/${slug}.md`
-//   ).catch(() => null);
-
-//   return {
-//     props: {
-//       blogpost: blogpost.default
-//     }
-//   };
-// }
 
 export default Post;

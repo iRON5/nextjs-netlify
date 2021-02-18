@@ -47,7 +47,7 @@ const Blog: React.FC<BlogProps> = ({ posts }) => (
 export const getStaticProps: GetStaticProps<BlogProps> = async ({
   locale = 'en'
 }) => {
-  const posts = getAllPosts<ShortPost>(
+  const posts = await getAllPosts<ShortPost>(
     [locale],
     ['title', 'date', 'slug', 'excerpt', 'thumbnail']
   );
