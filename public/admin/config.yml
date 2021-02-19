@@ -6,70 +6,68 @@ backend:
   auth_endpoint: api/auth
   open_authoring: true
   preview_context: vercel/success
+
 media_folder: /public/img
 public_folder: img
+
 publish_mode: editorial_workflow
+
 i18n:
-  # Required and can be one of multiple_folders, multiple_files or single_file
-  # multiple_folders - persists files in `<folder>/<locale>/<slug>.<extension>`
-  # multiple_files - persists files in `<folder>/<slug>.<locale>.<extension>`
-  # single_file - persists a single file in `<folder>/<slug>.<extension>`
-  structure: multiple_files
-
-  # Required - a list of locales to show in the editor UI
+  structure: multiple_folders
   locales: [en, ru]
+  default_locale: en
 
-  # Optional, defaults to the first item in locales.
-  # The locale to be used for fields validation and as a baseline for the entry.
-  default_locale: ru
 slug:
   encoding: 'ascii'
   clean_accents: true
+
 collections:
   - label: Home
     name: home
-    folder: content/home
     i18n: true
+    create: true
+    folder: content/home
     preview_path: /{{fields.language}}/home
     fields:
-      - { label: 'Title', name: 'title', widget: 'string' }
+      - { label: 'Title', name: 'title', widget: 'string', i18n: true }
       - {
           label: 'Publish Date',
           i18n: duplicate,
           name: 'date',
           widget: 'datetime',
         }
-      - { label: 'Body', name: 'body', widget: 'markdown' }
+      - { label: 'Body', name: 'body', widget: 'markdown', i18n: true }
   - label: About
     name: about
-    folder: content/about
     i18n: true
+    create: true
+    folder: content/about
     preview_path: /{{fields.language}}/about
     fields:
-      - { label: Title, name: title, widget: string }
+      - { label: Title, name: title, i18n: true }
       - {
           label: Publication Date,
           i18n: duplicate,
           name: date,
           widget: datetime,
         }
-      - { label: Body, name: body, widget: markdown }
+      - { label: Body, name: body, widget: markdown, i18n: true }
   - label: Blog posts
     name: blog
+    i18n: true
     folder: content/posts
     slug: '{{year}}-{{month}}-{{day}}__{{fields.slug}}'
     preview_path: /{{fields.language}}/blog/{{fields.slug}}
     create: true
-    i18n: true
     fields:
-      - { label: Title, name: title, widget: string, required: true }
       - {
-          label: URL Slug,
-          i18n: duplicate,
-          name: slug,
-          widget: string,
+          label: Title,
+          name: title,
           required: true,
+          i18n: true,
+          pattern: ['.{10,70}', 'Should have 10-70 characters'],
         }
+      - { label: URL Slug, i18n: duplicate, name: slug, required: true }
       - {
           label: Publish Date,
           i18n: duplicate,
@@ -82,5 +80,12 @@ collections:
           name: thumbnail,
           widget: image,
           required: true,
+          i18n: true,
         }
-      - { label: Body, name: body, widget: markdown, required: true }
+      - {
+          label: Body,
+          name: body,
+          widget: markdown,
+          required: true,
+          i18n: true,
+        }
