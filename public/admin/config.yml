@@ -41,7 +41,7 @@ collections:
       - { label: 'Body', name: 'body', widget: 'markdown' }
   - label: About
     name: about
-    folder: content/home
+    folder: content/about
     preview_path: /{{fields.language}}/about
     fields:
       - { label: Title, name: title, widget: string }
