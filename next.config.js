@@ -7,11 +7,4 @@ module.exports = {
     // a non-locale prefixed path e.g. `/hello`
     defaultLocale: 'ru',
   },
-  // webpack: (configuration) => {
-  //   configuration.module.rules.push({
-  //     test: /\.md$/,
-  //     use: 'frontmatter-markdown-loader',
-  //   })
-  //   return configuration
-  // },
 };

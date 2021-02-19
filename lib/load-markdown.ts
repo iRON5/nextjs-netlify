@@ -1,4 +1,4 @@
-import fsPromises from 'fs/promises';
+import fs from 'fs';
 import { join } from 'path';
 import matter from 'gray-matter';
 import { contentDir } from 'consts';
@@ -12,16 +12,22 @@ const firstLines = (file: string) => {
   return correctFile.excerpt;
 };
 
-export const loadMarkdown = async (filePath: string, fileName: string) => {
-  // {slug}.md -> {slug}
-  const realSlug = fileName.replace(/\.md$/, '');
-  const fullPath = join(contentDir, filePath, `${realSlug}.md`);
-  const fileContents = await fsPromises.readFile(fullPath, 'utf8');
+const findExactFileName = (folder: string, fileName: RegExp) => {
+  return fs.readdirSync(folder).find(
+    file => fileName.test(file),
+  ) as string;
+};
+
+export const loadMarkdown = async (filePath: string, fileName: string | RegExp) => {
+  const fileDir = join(contentDir, filePath);
+  const fullPath = typeof fileName === 'string'
+    ? join(fileDir, fileName)
+    : await findExactFileName(fileDir, fileName);
+  const fileContents = await fs.promises.readFile(fullPath, 'utf8');
 
   return {
     ...matter(fileContents, {
       excerpt: firstLines
     }),
-    realSlug
   };
 };

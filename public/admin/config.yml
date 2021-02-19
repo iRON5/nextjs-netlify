@@ -5,6 +5,7 @@ backend:
   base_url: https://romco.site
   auth_endpoint: api/auth
   open_authoring: true
+  preview_context: vercel/success
 media_folder: /public/img
 public_folder: img
 publish_mode: editorial_workflow
@@ -27,14 +28,9 @@ slug:
 collections:
   - label: Home
     name: home
-    i18n: true
-    filter:
-      field: language
-      value: en
     folder: content/home
-    preview_path: /api/preview?slug=home&ln={{fields.language}}
+    preview_path: /{{fields.language}}/home
     fields:
-      - { label: Language, name: language, widget: select, options: [en, ru] }
       - { label: 'Title', name: 'title', widget: 'string' }
       - {
           label: 'Publish Date',
@@ -45,14 +41,9 @@ collections:
       - { label: 'Body', name: 'body', widget: 'markdown' }
   - label: About
     name: about
-    i18n: true
     folder: content/home
-    preview_path: /api/preview?slug=about&ln={{fields.language}}
-    filter:
-      field: language
-      value: ru
+    preview_path: /{{fields.language}}/about
     fields:
-      - { label: Language, name: language, widget: select, options: [en, ru] }
       - { label: Title, name: title, widget: string }
       - {
           label: Publication Date,
@@ -64,14 +55,16 @@ collections:
   - label: Blog posts
     name: blog
     folder: content/posts
-    slug: '{{fields.slug}}'
-    preview_path: /api/preview?slug=blog/{{fields.slug}}&ln=en
-    filter:
-      field: language
-      value: en
+    slug: '{{year}}-{{month}}-{{day}}__{{fields.slug}}'
+    preview_path: /{{fields.language}}/blog/{{fields.slug}}
     create: true
+    i18n:
+      # Required and can be one of multiple_folders, multiple_files or single_file
+      # multiple_folders - persists files in `<folder>/<locale>/<slug>.<extension>`
+      # multiple_files - persists files in `<folder>/<slug>.<locale>.<extension>`
+      # single_file - persists a single file in `<folder>/<slug>.<extension>`
+      structure: multiple_folders
     fields:
-      - { label: Language, name: language, widget: select, options: [en, ru] }
       - { label: Title, name: title, widget: string, required: true }
       - {
           label: URL Slug,

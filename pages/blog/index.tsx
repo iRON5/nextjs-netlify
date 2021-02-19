@@ -1,7 +1,7 @@
 import React from 'react';
 import Link from 'next/link';
 import { Layout } from 'components/layout';
-import { getAllPosts } from 'data/posts';
+import { getAllPosts } from 'data/get-posts-data';
 import { GetStaticProps } from 'next';
 
 interface ShortPost {
@@ -45,7 +45,7 @@ const Blog: React.FC<BlogProps> = ({ posts }) => (
 );
 
 export const getStaticProps: GetStaticProps<BlogProps> = async ({
-  locale = 'en'
+  locale = 'ru'
 }) => {
   const posts = await getAllPosts<ShortPost>(
     [locale],

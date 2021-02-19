@@ -1,6 +1,6 @@
 import React from 'react';
 import { Layout } from 'components/layout';
-import { getPostBySlug, getAllPosts } from 'data/posts';
+import { getPostBySlug, getAllPosts } from 'data/get-posts-data';
 import { markdownToHtml } from 'lib/markdown-to-html';
 import { GetStaticPaths, GetStaticProps } from 'next';
 
@@ -41,7 +41,7 @@ const Post: React.FC<PostProps> = ({ post }) => {
 };
 
 interface PostPathParams {
-  post: string;
+  slug: string;
   [key: string]: string;
 }
 
@@ -53,9 +53,9 @@ export const getStaticPaths: GetStaticPaths<PostPathParams> = async ({
   return {
     paths: posts.map((post) => {
       return {
-        locale: post.locale || 'en',
+        locale: post.locale,
         params: {
-          post: post.params.slug
+          slug: post.params.slug
         }
       };
     }),
@@ -66,12 +66,10 @@ export const getStaticPaths: GetStaticPaths<PostPathParams> = async ({
 export const getStaticProps: GetStaticProps<
   PostProps,
   PostPathParams
-> = async ({ locale = 'en', params = {} }) => {
+> = async ({ locale, params }) => {
   const post = await getPostBySlug<PostData>(
-    {
-      locale,
-      path: params.post || ''
-    },
+    locale,
+    params?.slug,
     ['title', 'date', 'thumbnail', 'content']
   );
   const content = await markdownToHtml(post.params.content || '');

@@ -12,27 +12,31 @@ type PostField =
   | 'thumbnail';
 type PostParams = Partial<Record<PostField, string>>;
 
-const getPostSlugs = (locales: string[]) => {
+const getPostNames = (locales: string[]) => {
   return flatten(
-    locales.map((locale) => {
-      return fs.readdirSync(`${contentDir}/posts/${locale}`).map((path) => ({
-        path,
-        locale
-      }));
+    locales.map(locale => {
+      // get file names and extract slug from there
+      // the slug is equal to value in the file content
+      // so there is easier than read and parse file
+      // {date}__{slug}.md -> {slug}
+      return fs.readdirSync(`${contentDir}/posts/${locale}`).map(
+        fileName => ({
+          locale,
+          slug: fileName.replace(/.+__(.+)\.md/, '$1'),
+        }),
+      );
     })
   );
 };
 
 export const getPostBySlug = async <T extends PostParams>(
-  slug: {
-    locale: string;
-    path: string;
-  },
+  locale: string = 'ru',
+  slug: string = '',
   fields: PostField[] = []
 ) => {
-  const { data, content, realSlug, excerpt } = await loadMarkdown(
-    `posts/${slug.locale}`,
-    slug.path
+  const { data, content, excerpt } = await loadMarkdown(
+    `posts/${locale}`,
+    new RegExp(`\\d{4}-\\d{2}-\\d{2}__${slug}\.md`),
   );
 
   const post: {
@@ -40,15 +44,11 @@ export const getPostBySlug = async <T extends PostParams>(
     params: T;
   } = {
     params: {} as T,
-    locale: slug.locale
+    locale,
   };
 
   // Ensure only the minimal needed data is exposed
   fields.forEach((field) => {
-    if (field === 'slug') {
-      post.params[field] = realSlug;
-    }
-
     if (field === 'content') {
       post.params[field] = content;
     }
@@ -73,9 +73,9 @@ export const getAllPosts = async <T extends PostParams>(
   locales: string[] = [],
   fields: PostField[] = []
 ) => {
-  const slugs = getPostSlugs(locales);
+  const postsParams = getPostNames(locales);
   const posts = await Promise.all(
-    slugs.map(async (slug) => await getPostBySlug<T>(slug, fields))
+    postsParams.map(async ({ locale, slug }) => await getPostBySlug<T>(locale, slug, fields))
   );
 
   // sort posts by date in descending order

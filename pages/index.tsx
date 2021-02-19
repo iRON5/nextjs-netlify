@@ -29,7 +29,7 @@ type HomePathParams = {
 export const getStaticProps: GetStaticProps<
   HomeProps,
   HomePathParams
-> = async ({ locale = 'en' }) => {
+> = async ({ locale }) => {
   const data = await getStaticPageData<HomeData>(locale, 'home', [
     'title',
     'date',

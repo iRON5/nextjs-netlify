@@ -30,7 +30,7 @@ interface AboutPathParams {
 export const getStaticProps: GetStaticProps<
   AboutProps,
   AboutPathParams
-> = async ({ locale = 'en' }) => {
+> = async ({ locale }) => {
   const data = await getStaticPageData<AboutData>(locale, 'about', [
     'title',
     'date',
