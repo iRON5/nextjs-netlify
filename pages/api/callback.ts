@@ -28,13 +28,12 @@ const callbackHandler: NextApiHandler = async (req, res) => {
   const url = new URL(`https://${host}/${req.url}`);
   const urlParams = url.searchParams;
   const code = urlParams.get('code') || '';
-  const provider = urlParams.get('provider');
   const client = new AuthorizationCode(githubOAuthConfig);
 
   try {
     const accessToken = await client.getToken({
       code,
-      redirect_uri: `https://${host}/callback?provider=${provider}`,
+      redirect_uri: `https://${host}/api/callback`,
     });
     const token = accessToken.token['access_token'] as string;
     const responseBody = renderBody('success', token);

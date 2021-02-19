@@ -10,7 +10,7 @@ const authHandler: NextApiHandler = async (req, res) => {
   const client = new AuthorizationCode(githubOAuthConfig);
 
   const authorizationUri = client.authorizeURL({
-    redirect_uri: `https://${host}/callback?provider=github`,
+    redirect_uri: `https://${host}/api/callback`,
     scope: 'repo,user',
     state: randomString(),
   });
