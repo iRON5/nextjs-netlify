@@ -4,13 +4,13 @@ import { AuthorizationCode } from 'simple-oauth2';
 
 const renderBody = (
   status: string,
-  token: string,
+  token: { token: string } | Error,
 ) => {
   return `
     <script>
       const receiveMessage = (message) => {
         window.opener.postMessage(
-          'authorization:github:${status}:${JSON.stringify(token.replace('"', ''))}',
+          'authorization:github:${status}:${JSON.stringify(token)}',
           message.origin
         );
         window.removeEventListener('message', receiveMessage, false);
@@ -34,7 +34,7 @@ const callbackHandler: NextApiHandler = async (req, res) => {
       redirect_uri: `https://${host}/api/callback`,
     });
     const token = accessToken.token['access_token'] as string;
-    const responseBody = renderBody('success', token);
+    const responseBody = renderBody('success', { token });
 
     res.statusCode = 200;
     res.end(responseBody);
