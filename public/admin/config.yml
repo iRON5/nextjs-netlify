@@ -1,7 +1,7 @@
 backend:
   name: github
   repo: iRON5/nextjs-netlify
-  branch: stage
+  branch: master
   base_url: https://romco.site
   auth_endpoint: api/auth
   open_authoring: true
@@ -29,6 +29,7 @@ collections:
   - label: Home
     name: home
     folder: content/home
+    i18n: true
     preview_path: /{{fields.language}}/home
     fields:
       - { label: 'Title', name: 'title', widget: 'string' }
@@ -42,6 +43,7 @@ collections:
   - label: About
     name: about
     folder: content/about
+    i18n: true
     preview_path: /{{fields.language}}/about
     fields:
       - { label: Title, name: title, widget: string }
@@ -58,12 +60,7 @@ collections:
     slug: '{{year}}-{{month}}-{{day}}__{{fields.slug}}'
     preview_path: /{{fields.language}}/blog/{{fields.slug}}
     create: true
-    i18n:
-      # Required and can be one of multiple_folders, multiple_files or single_file
-      # multiple_folders - persists files in `<folder>/<locale>/<slug>.<extension>`
-      # multiple_files - persists files in `<folder>/<slug>.<locale>.<extension>`
-      # single_file - persists a single file in `<folder>/<slug>.<extension>`
-      structure: multiple_folders
+    i18n: true
     fields:
       - { label: Title, name: title, widget: string, required: true }
       - {

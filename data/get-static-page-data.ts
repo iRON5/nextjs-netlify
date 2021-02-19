@@ -7,7 +7,7 @@ export const getStaticPageData = async <
   page: 'home' | 'about',
   fields: (keyof Params)[] = []
 ) => {
-  const { data, content } = await loadMarkdown(page, `${page}.${locale}.md`);
+  const { data, content } = await loadMarkdown(`${page}/${locale}`, `${page}.md`);
 
   const post: {
     locale: string;
