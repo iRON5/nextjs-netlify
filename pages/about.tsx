@@ -40,7 +40,7 @@ export const getStaticProps: GetStaticProps<
 
   return {
     props: {
-      locale,
+      locale: data.locale,
       data: {
         ...data.params,
         date: String(data.params.date),

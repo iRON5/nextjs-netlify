@@ -12,17 +12,19 @@ const firstLines = (file: string) => {
   return correctFile.excerpt;
 };
 
-const findExactFileName = (folder: string, fileName: RegExp) => {
-  return fs.readdirSync(folder).find(
+const findExactFilePath = (folder: string, fileName: RegExp) => {
+  const exactFileName = fs.readdirSync(folder).find(
     file => fileName.test(file),
   ) as string;
+
+  return join(folder, exactFileName);
 };
 
 export const loadMarkdown = async (filePath: string, fileName: string | RegExp) => {
   const fileDir = join(contentDir, filePath);
   const fullPath = typeof fileName === 'string'
     ? join(fileDir, fileName)
-    : await findExactFileName(fileDir, fileName);
+    : await findExactFilePath(fileDir, fileName);
   const fileContents = await fs.promises.readFile(fullPath, 'utf8');
 
   return {
