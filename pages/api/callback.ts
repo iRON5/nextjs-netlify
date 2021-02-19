@@ -10,9 +10,7 @@ const renderBody = (
     <script>
       const receiveMessage = (message) => {
         window.opener.postMessage(
-          'authorization:github:${status}:${JSON.stringify(
-            token
-          )}',
+          'authorization:github:${status}:${JSON.stringify(token.replace('"', ''))}',
           message.origin
         );
         window.removeEventListener('message', receiveMessage, false);
