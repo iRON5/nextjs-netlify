@@ -5,7 +5,7 @@ backend:
   base_url: https://romco.site
   auth_endpoint: api/auth
   open_authoring: true
-  preview_context: Vercel/deployment
+  preview_context: Vercel
 
 media_folder: /public/img
 public_folder: img
