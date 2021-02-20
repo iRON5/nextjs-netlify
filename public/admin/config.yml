@@ -13,8 +13,8 @@ publish_mode: editorial_workflow
 
 i18n:
   structure: multiple_folders
-  locales: [en, ru]
-  default_locale: en
+  locales: [ru, en]
+  default_locale: ru
 
 slug:
   encoding: 'ascii'
