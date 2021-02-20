@@ -7,4 +7,4 @@ date: 2019-03-17T19:31:20.591Z
 
 If you want to know more about Next.js + Netlifycms go to the official tutorial [here](https://www.netlifycms.org/docs/nextjs/).
 
-This is some unique content for English location.
+Another unique content for English location.
