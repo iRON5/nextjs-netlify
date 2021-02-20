@@ -4,7 +4,6 @@ backend:
   branch: master
   base_url: https://romco.site
   auth_endpoint: api/auth
-  open_authoring: true
   preview_context: Vercel
 
 media_folder: /public/img
@@ -26,7 +25,6 @@ collections:
     name: home
     i18n: true
     folder: content/home
-    preview_path: /{{fields.language}}/home
     fields:
       - { label: 'Title', name: 'title', widget: 'string', i18n: true }
       - {
@@ -40,7 +38,6 @@ collections:
     name: about
     i18n: true
     folder: content/about
-    preview_path: /{{fields.language}}/about
     fields:
       - { label: Title, name: title, i18n: true }
       - {
@@ -55,7 +52,6 @@ collections:
     i18n: true
     folder: content/posts
     slug: '{{year}}-{{month}}-{{day}}__{{fields.slug}}'
-    preview_path: /{{fields.language}}/blog/{{fields.slug}}
     create: true
     fields:
       - {
