@@ -18,6 +18,7 @@ const Home: React.FC<HomeProps> = ({ data }) => (
         text-align: center;
       }
     `}</style>
+    <script data-ad-client="ca-pub-1986758612495595" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
   </Layout>
 );
 
